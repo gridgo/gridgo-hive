@@ -1,4 +1,4 @@
-package io.gridgo.hive.client.exception;
+package io.gridgo.hive.connection.exception;
 
 public class CreateHiveConnectionException extends RuntimeException {
 

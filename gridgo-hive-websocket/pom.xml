@@ -6,16 +6,24 @@
 		<groupId>io.gridgo</groupId>
 		<artifactId>gridgo-hive</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<artifactId>gridgo-hive-client</artifactId>
+	<artifactId>gridgo-hive-websocket</artifactId>
+
+	<properties>
+		<gridgo.netty4.version>${gridgo.version}</gridgo.netty4.version>
+	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>io.gridgo</groupId>
 			<artifactId>gridgo-hive-connection</artifactId>
 			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.gridgo</groupId>
+			<artifactId>gridgo-socket-netty4</artifactId>
+			<version>${gridgo.netty4.version}</version>
 		</dependency>
 	</dependencies>
 </project>

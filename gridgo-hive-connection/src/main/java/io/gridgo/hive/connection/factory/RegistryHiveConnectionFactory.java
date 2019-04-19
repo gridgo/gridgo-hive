@@ -1,4 +1,4 @@
-package io.gridgo.hive.client.connection.impl;
+package io.gridgo.hive.connection.factory;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
@@ -8,13 +8,12 @@ import java.util.regex.Pattern;
 import org.cliffc.high_scale_lib.NonBlockingHashMap;
 
 import io.gridgo.connector.ConnectorResolver;
-import io.gridgo.hive.client.connection.ConnectorResolverAware;
-import io.gridgo.hive.client.connection.HiveConnection;
-import io.gridgo.hive.client.connection.HiveConnectionFactory;
-import io.gridgo.hive.client.connection.RegisterHiveConnection;
-import io.gridgo.hive.client.exception.CreateHiveConnectionException;
-import io.gridgo.hive.client.exception.SchemeHandlerExistException;
-import io.gridgo.hive.client.exception.SchemeNotRegisterException;
+import io.gridgo.hive.connection.ConnectorResolverAware;
+import io.gridgo.hive.connection.HiveConnection;
+import io.gridgo.hive.connection.RegisterHiveConnection;
+import io.gridgo.hive.connection.exception.CreateHiveConnectionException;
+import io.gridgo.hive.connection.exception.SchemeHandlerExistException;
+import io.gridgo.hive.connection.exception.SchemeNotRegisterException;
 import io.gridgo.utils.helper.Loggable;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -97,7 +96,7 @@ public abstract class RegistryHiveConnectionFactory implements HiveConnectionFac
             if (connection instanceof ConnectorResolverAware) {
                 ((ConnectorResolverAware) connection).setConnectorResolver(getConnectorResolver());
             }
-            connection.connect(endpoint);
+            connection.start(endpoint);
             return connection;
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException
                 | SecurityException e) {

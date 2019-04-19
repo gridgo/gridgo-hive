@@ -1,27 +1,29 @@
-package io.gridgo.hive.client.connection.impl;
+package io.gridgo.hive.client.connection;
 
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.cliffc.high_scale_lib.NonBlockingHashMap;
+import org.joo.promise4j.Promise;
 
-import io.gridgo.bean.BElement;
-import io.gridgo.hive.client.connection.HiveConnection;
-import io.gridgo.hive.client.connection.HiveConnectionFactory;
-import io.gridgo.hive.client.exception.ConnectionNotFoundException;
+import io.gridgo.hive.connection.HiveConnection;
+import io.gridgo.hive.connection.exception.ConnectionNotFoundException;
+import io.gridgo.hive.connection.factory.HiveConnectionFactory;
+import io.gridgo.hive.connection.manager.HiveTransportMessage;
+import io.gridgo.hive.connection.manager.ObservableHiveConnectionManager;
 import lombok.NonNull;
 
-public class SimpleHiveConnectionManager extends AbstractHiveConnectionManager {
+public class BaseHiveConnectionManager extends ObservableHiveConnectionManager implements HiveClientConnectionManager {
 
     private final AtomicInteger _connectionIdSeed = new AtomicInteger(0);
 
     private final Map<Integer, HiveConnection> connections = new NonBlockingHashMap<>();
 
-    protected HiveConnectionFactory createConnectionFactory() {
-        return new AutoScanHiveConnectionFactory();
+    public BaseHiveConnectionManager(HiveConnectionFactory connectionFactory) {
+        super(connectionFactory);
     }
 
-    protected int registerConnection(@NonNull HiveConnection connection) {
+    private int registerConnection(@NonNull HiveConnection connection) {
         int id = _connectionIdSeed.getAndIncrement();
         this.connections.put(id, connection);
         return id;
@@ -47,14 +49,19 @@ public class SimpleHiveConnectionManager extends AbstractHiveConnectionManager {
         // do nothing
     }
 
+    @Override
     public int connect(String endpoint) {
         var connection = getConnectionFactory().newConnection(endpoint);
         this.prepareConnection(connection);
-        return this.registerConnection(connection);
+        final int connectionId = this.registerConnection(connection);
+        connection.addEventListener((data) -> {
+            dispatchEvent(HiveTransportMessage.newDefault(connectionId, data));
+        });
+        return connectionId;
     }
 
     @Override
-    public void sendTo(int connectionId, BElement data) {
-        this.lookupConnectionMandatory(connectionId).send(data);
+    public Promise<Boolean, Exception> send(@NonNull HiveTransportMessage message) {
+        return this.lookupConnectionMandatory(message.getConnectionId()).send(message.getPayload());
     }
 }

@@ -6,16 +6,7 @@
 		<groupId>io.gridgo</groupId>
 		<artifactId>gridgo-hive</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<artifactId>gridgo-hive-client</artifactId>
-
-	<dependencies>
-		<dependency>
-			<groupId>io.gridgo</groupId>
-			<artifactId>gridgo-hive-connection</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-	</dependencies>
+	<artifactId>gridgo-hive-connection</artifactId>
 </project>

@@ -11,12 +11,35 @@
 
 	<artifactId>gridgo-hive-server</artifactId>
 
+	<properties>
+		<atomix.version>3.1.5</atomix.version>
+	</properties>
+
 	<dependencies>
 		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>gridgo-hive-client</artifactId>
+			<groupId>io.gridgo</groupId>
+			<artifactId>gridgo-hive-connection</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>io.atomix</groupId>
+			<artifactId>atomix</artifactId>
+			<version>${atomix.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.atomix</groupId>
+			<artifactId>atomix-raft</artifactId>
+			<version>${atomix.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.atomix</groupId>
+			<artifactId>atomix-log</artifactId>
+			<version>${atomix.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.atomix</groupId>
+			<artifactId>atomix-primary-backup</artifactId>
+			<version>${atomix.version}</version>
+		</dependency>
 	</dependencies>
-
 </project>

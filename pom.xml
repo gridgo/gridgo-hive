@@ -39,10 +39,13 @@
 		<slf4j.version>1.7.25</slf4j.version>
 		<lombok.version>1.18.2</lombok.version>
 
-		<atomix.version>3.1.5</atomix.version>
-		<gridgo.bean.version>0.6.0-SNAPSHOT</gridgo.bean.version>
-		<gridgo.socket.netty4.version>0.6.0-SNAPSHOT</gridgo.socket.netty4.version>
-		<gridgo.framework.version>0.6.0-SNAPSHOT</gridgo.framework.version>
+		<junit.version>4.12</junit.version>
+
+		<gridgo.version>0.6.0-SNAPSHOT</gridgo.version>
+
+		<gridgo.bean.version>${gridgo.version}</gridgo.bean.version>
+		<gridgo.socket.netty4.version>${gridgo.version}</gridgo.socket.netty4.version>
+		<gridgo.framework.version>${gridgo.version}</gridgo.framework.version>
 	</properties>
 
 	<build>
@@ -185,26 +188,6 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>io.atomix</groupId>
-			<artifactId>atomix</artifactId>
-			<version>${atomix.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>io.atomix</groupId>
-			<artifactId>atomix-raft</artifactId>
-			<version>${atomix.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>io.atomix</groupId>
-			<artifactId>atomix-log</artifactId>
-			<version>${atomix.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>io.atomix</groupId>
-			<artifactId>atomix-primary-backup</artifactId>
-			<version>${atomix.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>io.gridgo</groupId>
 			<artifactId>gridgo-bean</artifactId>
 			<version>${gridgo.bean.version}</version>
@@ -248,10 +231,20 @@
 			<version>${lombok.version}</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<modules>
 		<module>gridgo-hive-server</module>
 		<module>gridgo-hive-client</module>
+		<module>gridgo-hive-client-websocket</module>
+		<module>gridgo-hive-server-websocket</module>
+		<module>gridgo-hive-connection</module>
+		<module>gridgo-hive-websocket</module>
 	</modules>
 </project>

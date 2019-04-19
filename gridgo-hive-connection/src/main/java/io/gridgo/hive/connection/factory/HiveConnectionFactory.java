@@ -1,4 +1,6 @@
-package io.gridgo.hive.client.connection;
+package io.gridgo.hive.connection.factory;
+
+import io.gridgo.hive.connection.HiveConnection;
 
 public interface HiveConnectionFactory {
 

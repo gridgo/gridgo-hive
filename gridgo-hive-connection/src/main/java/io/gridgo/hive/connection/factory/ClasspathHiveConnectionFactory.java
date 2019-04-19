@@ -1,18 +1,18 @@
-package io.gridgo.hive.client.connection.impl;
+package io.gridgo.hive.connection.factory;
 
 import java.util.Set;
 
 import org.reflections.Reflections;
 
-import io.gridgo.hive.client.connection.HiveConnection;
-import io.gridgo.hive.client.connection.RegisterHiveConnection;
+import io.gridgo.hive.connection.HiveConnection;
+import io.gridgo.hive.connection.RegisterHiveConnection;
 import lombok.NonNull;
 
-public class AutoScanHiveConnectionFactory extends RegistryHiveConnectionFactory {
+public class ClasspathHiveConnectionFactory extends RegistryHiveConnectionFactory {
 
     public static final String DEFAULT_PACKAGE = HiveConnection.class.getPackageName();
 
-    public AutoScanHiveConnectionFactory() {
+    public ClasspathHiveConnectionFactory() {
         this.scan(DEFAULT_PACKAGE);
     }
 

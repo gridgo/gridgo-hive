@@ -1,4 +1,4 @@
-package io.gridgo.hive.client.connection;
+package io.gridgo.hive.connection;
 
 import io.gridgo.connector.ConnectorResolver;
 
